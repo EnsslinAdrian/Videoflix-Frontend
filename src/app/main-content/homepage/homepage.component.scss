@@ -1,0 +1,246 @@
+section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.recommended-movie-container {
+  background-color: white;
+  width: 100%;
+  min-height: 500px;
+  position: relative;
+  background-image: url('https://api.adrianensslin.de/media/trailer/spring_0brOkmO.png');
+}
+
+.bg-dark {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+.bg-movie {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
+
+.bg-video {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%; min-height: 100%;
+  object-fit: cover;
+}
+
+.end-image {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%; min-height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  z-index: 2;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.mute-btn {
+  position: absolute;
+  bottom: 50px;
+  right: 100px;
+  z-index: 5;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(211, 211, 211, 0.288);
+  border-radius: 50%;
+
+  &:hover {
+    background-color: rgba(211, 211, 211, 0.5);
+  }
+
+  @media (max-width: 960px) {
+    right: 20px;
+  }
+}
+
+.movie-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+  margin-top: 150px;
+  margin-left: 100px;
+  width: 40%;
+  position: absolute;
+  z-index: 5;
+  bottom: 50px;
+
+  @media (max-width: 960px) {
+    margin-left: 20px;
+    width: 60%;
+  }
+
+  @media (max-width: 420px) {
+    width: 80%;
+  }
+}
+
+.play-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--purple);
+  border-radius: 20px;
+  padding: 10px 20px;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  gap: 10px;
+
+
+  &:hover {
+    background-color: var(--purple_hover);
+  }
+}
+
+.more-movies-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 100px;
+  margin-bottom: 120px;
+
+  @media (max-width: 960px) {
+    padding: 0 20px;
+  }
+}
+
+.movies-container-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.movies-container {
+  display: flex;
+  justify-content: start;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.movie-card {
+  width: 200px;
+  height: 120px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 960px) {
+    width: 170px;
+    height: 96px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.arrow-right {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05) translateY(-50%) ;
+  }
+}
+.arrow-left {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05) translateY(-50%) rotate(180deg);
+  }
+}
+
+.arrow-left,
+.arrow-right {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.movies-container-wrapper:hover .arrow-left,
+.movies-container-wrapper:hover .arrow-right {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bg-gradient-left,
+.bg-gradient-right {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 10%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.bg-gradient-left {
+  left: 0;
+  background: linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 20%);
+}
+
+.bg-gradient-right {
+  right: 0;
+  background: linear-gradient(90deg,rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 1) 100%);
+}
+
+.bg-gradient-left.visible,
+.bg-gradient-right.visible {
+  opacity: 1;
+}
+
+.movies-container-wrapper.show-arrows .arrow-left,
+.movies-container-wrapper.show-arrows .arrow-right {
+  opacity: 1;
+  pointer-events: auto;
+}

@@ -1,0 +1,41 @@
+<section>
+  <div class="bg-dark"></div>
+  <div class="bg-img"></div>
+
+  <form class="login-container" [formGroup]="signUp" (ngSubmit)="onSubmit()">
+    <h1 class="dm-sans">Sign up</h1>
+
+    <div class="froms-conatiner">
+    <div class="input-container">
+      <img src="/img/icons/sign_up/mail.svg" alt="Mail">
+      <input formControlName="email" class="dm-sans" type="email" placeholder="Email Address">
+    </div>
+    <app-typography *ngIf="signUp.controls.email.invalid && signUp.controls.email.touched" text="Please enter a valid email address" size="small" color="red" [weight]="400" [align]="'left'"></app-typography>
+
+
+    <div class="input-container">
+      <img src="/img/icons/sign_up/password.svg" alt="Password">
+      <input formControlName="password" class="dm-sans" [type]="showPassword ? 'text' : 'password'" name="" placeholder="Password">
+      <img *ngIf="showPassword" class="password-icon" src="/img/icons/sign_up/visibility.svg" alt="Visibility" (click)="togglePasswordVisibility('password')">
+      <img *ngIf="!showPassword" class="password-icon" src="/img/icons/sign_up/visibility_off.svg" alt="Visibility" (click)="togglePasswordVisibility('password')">
+    </div>
+    <app-typography *ngIf="signUp.controls.password.invalid && signUp.controls.password.touched" text="One uppercase letter and one number required." size="small" color="red" [weight]="400" [align]="'left'"></app-typography>
+
+    <div class="input-container">
+      <img src="/img/icons/sign_up/password.svg" alt="Password">
+      <input formControlName="confirmPassword" class="dm-sans" [type]="showConfirmPassword ? 'text' : 'password'" name="" placeholder="Password">
+      <img *ngIf="showConfirmPassword" class="password-icon" src="/img/icons/sign_up/visibility.svg" alt="Visibility" (click)="togglePasswordVisibility('confirmPassword')">
+      <img *ngIf="!showConfirmPassword" class="password-icon" src="/img/icons/sign_up/visibility_off.svg" alt="Visibility" (click)="togglePasswordVisibility('confirmPassword')">
+    </div>
+    <app-typography *ngIf="signUp.errors?.['passwordMismatch'] && signUp.get('confirmPassword')?.touched" text="Passwords do not match." size="small" color="red" [weight]="400" [align]="'left'"></app-typography>
+
+  </div>
+
+    <button class="email-btn" type="submit" [disabled]="signUp.invalid || isLoading" [ngClass]="{'disabled-btn': signUp.invalid || isLoading}">
+      <app-typography text="Get Started" size="medium" color="white" [weight]="700" [align]="'center'"></app-typography>
+    </button>
+
+  </form>
+
+  <app-error-toast [toastMessage]="toastMessage" [showErrorToast]="result" [errorOrCorrect]="errorOrCorrect" (showErrorToastChange)="clrearErrorToast()"></app-error-toast>
+</section>

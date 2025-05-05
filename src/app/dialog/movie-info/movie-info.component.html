@@ -1,0 +1,56 @@
+<div class="movie-info-container" [class.show-movie-info]="showMovieInfo">
+  <div class="movie-info-header">
+    <img src="/img/logo/logo.svg" alt="Logo">
+    <img (click)="closeMovieInfo()" src="/img/icons/arrows/arrow_back.svg" alt="Back" />
+  </div>
+  <div class="movie-info-content">
+    <div class="movie-info">
+      <app-typography text="Title" size="medium-32" color="white" [weight]="700" [align]="'left'"></app-typography>
+      <app-typography text="{{movieData.title}}" size="small" color="white" [weight]="400" [align]="'left'"></app-typography>
+    </div>
+
+    <div class="movie-info">
+      <app-typography text="Description" size="medium-32" color="white" [weight]="700"
+        [align]="'left'"></app-typography>
+      <app-typography
+        text="{{movieData.description}}"
+        size="small" color="white" [weight]="400" [align]="'left'"></app-typography>
+    </div>
+
+    <div class="movie-info">
+      <app-typography text="Genre" size="medium-32" color="white" [weight]="700" [align]="'left'"></app-typography>
+      <app-typography text="{{movieData.genre}}" size="small" color="white" [weight]="400" [align]="'left'"></app-typography>
+    </div>
+
+    <div class="movie-info">
+      <app-typography text="Release" size="medium-32" color="white" [weight]="700" [align]="'left'"></app-typography>
+      <app-typography text="{{movieData.release}}" size="small" color="white" [weight]="400" [align]="'left'"></app-typography>
+    </div>
+
+    <div class="movie-info">
+      <app-typography text="Director" size="medium-32" color="white" [weight]="700" [align]="'left'"></app-typography>
+      <app-typography text="{{movieData.director}}" size="small" color="white" [weight]="400"
+        [align]="'left'"></app-typography>
+    </div>
+
+    <div class="movie-info">
+      <app-typography text="License Type" size="medium-32" color="white" [weight]="700"
+        [align]="'left'"></app-typography>
+      <app-typography text="{{movieData.license_type}}" size="small" color="white" [weight]="400"
+        [align]="'left'"></app-typography>
+    </div>
+
+    <div class="movie-info">
+      <app-typography text="License" size="medium-32" color="white" [weight]="700" [align]="'left'"></app-typography>
+      <a class="dm-sans"
+        href="{{movieData.license_url}}">Link</a>
+    </div>
+
+    <div class="movie-info">
+      <app-typography text="Source" size="medium-32" color="white" [weight]="700" [align]="'left'"></app-typography>
+      <a class="dm-sans"
+        href="{{movieData.source_url}}">Link</a>
+    </div>
+
+  </div>
+</div>

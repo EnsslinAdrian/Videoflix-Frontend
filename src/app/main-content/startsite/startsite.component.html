@@ -1,0 +1,24 @@
+<section>
+  <div class="bg-dark"></div>
+  <div class="bg-img"></div>
+
+  <h1 class="dm-sans">Movies, TV shows, and more</h1>
+  <app-typography text="Enter your email to create or restart your subscription." size="medium" color="white" [weight]="400" [align]="'center'"></app-typography>
+
+  <form class="email-container" [formGroup]="startsite" (ngSubmit)="onSubmit()">
+    <div class="froms-conatiner">
+    <input formControlName="email" type="text" placeholder="Email Address" class="email-input">
+
+    <app-typography *ngIf="startsite.controls.email.invalid && startsite.controls.email.touched"
+    text="Please enter a valid email address" size="small" color="red" [weight]="400"
+    [align]="'left'"></app-typography>
+  </div>
+
+    <button class="email-btn" type="submit" [disabled]="startsite.invalid" [ngClass]="{'disabled-btn': startsite.invalid}">
+      <app-typography text="Sign Up" size="medium" color="white" [weight]="400" [align]="'center'"></app-typography>
+      <img src="/img/icons/arrows/arrow_right.svg" alt="Arrow">
+    </button>
+  </form>
+
+
+</section>

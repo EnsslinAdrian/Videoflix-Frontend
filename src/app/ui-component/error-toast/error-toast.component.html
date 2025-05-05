@@ -1,0 +1,7 @@
+<div class="error-toast" [ngClass]="{'show-error-toast': showErrorToast}">
+  <div class="error-color" [ngStyle]="{ 'background-color': errorOrCorrect === 'error' ? '#FF002E' : '#00C853' }"></div>
+  <img src="/img/icons/notice.svg" alt="Notice">
+  <app-typography style="margin: 20px 0px;" text="{{toastMessage}}" size="small" color="white" [weight]="400" [align]="'left'"></app-typography>
+  <div class="between-line"></div>
+  <img src="/img/icons/close_small.svg" alt="" (click)="closeErrorToast()" class="close-icon">
+</div>

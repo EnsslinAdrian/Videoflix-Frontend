@@ -1,0 +1,17 @@
+<div class="video-wrapper" (mouseenter)="showOverlay = true" (mouseleave)="showOverlay = false">
+  <video id="my-video" class="plyr__video-embed" playsinline controls preload="auto"></video>
+
+  <div class="custom-overlay top-right" [class.visible]="showOverlay">
+    <img src="/img/logo/logo_short.svg" alt="Logo" (click)="onRightLogoClick()" />
+  </div>
+
+  <div class="custom-overlay top-left" [class.visible]="showOverlay">
+    <img src="/img/icons/arrows/arrow_back.svg" alt="Logo" (click)="onLeftLogoClick()" />
+  </div>
+
+  <div class="custom-title" [class.visible]="showOverlay">
+    <app-typography [text]="movieData.title" size="medium" color="white" [weight]="700" [align]="'left'"></app-typography>
+  </div>
+
+  <app-movie-info [showMovieInfo]="showMovieInfo" [movieData]="movieData" (closeMovieInfoEvent)="closeMovieInfoEvent()"></app-movie-info>
+</div>

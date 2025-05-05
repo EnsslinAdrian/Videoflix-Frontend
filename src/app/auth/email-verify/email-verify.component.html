@@ -1,0 +1,12 @@
+<section>
+
+  <div class="border-spiner card" [ngClass]="{'loading': isLoading, 'error': isError, 'success': isSuccess}" [ngStyle]="{'--answer-angle': angle + 'deg'}">
+    <div class="content">
+      <app-typography text="Email Verify" size="large" color="white" [weight]="400" [align]="'center'"></app-typography>
+      <app-typography *ngIf="isLoading" text="We are verifying your email address. Please wait a moment..." size="medium" color="white" [weight]="400" [align]="'center'"></app-typography>
+      <app-typography *ngIf="isError" text="{{error}}" size="medium" color="red" [weight]="400" [align]="'center'"></app-typography>
+      <app-typography *ngIf="isSuccess" text="Your email has been successfully verified! " size="medium" color="green" [weight]="400" [align]="'center'"></app-typography>
+    </div>
+  </div>
+
+</section>

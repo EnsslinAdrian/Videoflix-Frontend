@@ -1,0 +1,33 @@
+@use "./fonts.scss";
+
+:root {
+  --purple: #2E3EDF;
+  --purple_hover: #232ea1;
+  --gray: #5E5E5E;
+  --gray_hover: #3b3b3b;
+  --white: #FFFFFF;
+  --white_hover: #d6d6d6;
+  --black: #000000;
+  --red: #FF0000;
+  --green: #00FF00;
+}
+
+body {
+  margin: 0;
+}
+
+.dm-sans {
+  font-family: 'DM Sans';
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    -webkit-text-fill-color: white !important;
+    caret-color: #333 !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+}

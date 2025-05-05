@@ -1,0 +1,152 @@
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 30px 96px;
+  height: 100px;
+
+  @media (max-width: 960px) {
+    padding: 30px 20px;
+  }
+}
+
+.link-btn {
+  box-sizing: border-box;
+  border-radius: 20px;
+  padding: 10px 20px;
+  background-color: var(--purple);
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  position: absolute;
+  right: 100px;
+
+  @media (max-width: 960px) {
+    right: 20px;
+  }
+
+  &:hover {
+    background-color: var(--purple_hover);
+  }
+}
+
+
+.logo-img {
+  cursor: pointer;
+  width: 200px;
+  opacity: 1;
+
+  @media (max-width: 420px) {
+    display: none;
+  }
+}
+
+.logo-img-short {
+  display: none;
+  cursor: pointer;
+
+  @media (max-width: 420px) {
+    display: block;
+  }
+}
+
+.logo-img.animate-show {
+  opacity: 0;
+  animation: showLogo 0ms ease-out forwards;
+}
+
+@keyframes showLogo {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.start-animation-container {
+  width: 100%;
+  height: 100%;
+  background-color: var(--black);
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  animation: fadeBackground 1.5s ease-in-out 2s forwards;
+}
+
+.img-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  animation: slideUpLeft 1s ease-out 2s forwards;
+
+  @media (max-width: 960px) {
+    animation: slideUpLeftMobile 1s ease-out 2s forwards;
+  }
+}
+
+.img-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--black);
+  animation: revealMask 1.5s ease-out forwards;
+}
+
+.start-animation-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@keyframes revealMask {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
+}
+
+@keyframes slideUpLeft {
+  from {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+  to {
+    top: 34px;
+    left: 96px;
+    transform: none;
+    width: 200px;
+  }
+}
+
+@keyframes slideUpLeftMobile {
+  from {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+  to {
+    top: 34px;
+    left: 20px;
+    transform: none;
+    width: 200px;
+  }
+}
+
+@keyframes fadeBackground {
+  0%   { background-color: rgba(0,0,0,1); }
+  50%  { background-color: rgba(0,0,0,0.5); }
+  100% { background-color: rgba(0,0,0,0); }
+}
+

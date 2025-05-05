@@ -1,0 +1,114 @@
+section {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.bg-img {
+  background-image: url('/img/background/startsite.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  position: absolute;
+}
+
+.bg-dark {
+  position: absolute;
+  z-index: 2;
+  background: linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 1) 100%);
+  width: 100%;
+  height: 100%;
+}
+
+.disabled-btn {
+  background-color: var(--gray) !important;
+  cursor: not-allowed !important;
+
+  &:hover {
+    background-color: var(--gray_hover) !important;
+  }
+}
+
+h1 {
+  font-size: 48px;
+  color: var(--white);
+  z-index: 3;
+  position: relative;
+  text-align: center;
+  font-weight: 700;
+  text-shadow: -2px 2px 8px rgba(242,242,242,0.7);
+
+  @media (max-width: 580px) {
+    font-size: 36px;
+  }
+}
+
+app-typography {
+  z-index: 3;
+  position: relative;
+  text-shadow: -2px 2px 8px rgba(242,242,242,0.7);
+}
+
+.froms-conatiner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.email-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  z-index: 3;
+  position: relative;
+
+  @media(max-width: 580px) {
+    flex-direction: column;
+  }
+
+  input {
+    width: 300px;
+    height: 48px;
+    border-radius: 20px;
+    padding: 0px 20px;
+    background-color: #1c1a20b6;
+    border: none;
+    outline: none;
+    border: 1px solid var(--white);
+    font-size: 18px;
+    color: var(--white);
+
+    @media(max-width: 520px) {
+      width: 100%;
+    }
+
+    &::placeholder {
+      color: var(--white);
+    }
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--purple);
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    gap: 10px;
+
+    &:hover {
+      background-color: var(--purple_hover);
+    }
+  }
+}

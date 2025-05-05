@@ -1,0 +1,121 @@
+section {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.verify-container {
+  box-sizing: border-box;
+  padding: 50px;
+  background-color: #1B1B22D9;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  border-radius: 50px;
+  width: 520px;
+}
+
+.border-spiner {
+  height: 200px;
+  width: 520px;
+  position: relative;
+  border-radius: 10px;
+}
+
+.content {
+  background-color: rgb(34, 31, 31);
+  border-radius: 10px;
+  padding: 20px;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  z-index: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gradient-stop {
+  syntax: '<percentage>';
+  initial-value: 70%;
+  inherits: false;
+}
+
+.card::after,
+.card::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  padding: 2px;
+  border-radius: 10px;
+  transition: background-image 0.5s ease-in-out;
+}
+
+.card::before {
+  filter: blur(1rem);
+  opacity: 0.4;
+}
+
+.card.loading::after,
+.card.loading::before {
+  background-image: conic-gradient(from var(--angle), transparent 50%, rgb(122,14,255));
+  animation: spin 3s linear infinite;
+}
+
+
+.card.error::after,
+.card.error::before,
+.card.success::after,
+.card.success::before {
+  animation: fadeIn 1s forwards;
+}
+
+.card.error::after,
+.card.error::before {
+  background-image: conic-gradient(
+    from var(--answer-angle, 124deg),
+    transparent var(--gradient-stop),
+    red,
+    transparent calc(100% - var(--gradient-stop))
+  );
+}
+
+.card.success::after,
+.card.success::before {
+  background-image: conic-gradient(
+    from var(--answer-angle, 124deg),
+    transparent var(--gradient-stop),
+    rgb(0, 255, 0),
+    transparent calc(100% - var(--gradient-stop))
+  );
+}
+
+/* Animationen */
+@keyframes spin {
+  from { --angle: 0deg; }
+  to { --angle: 360deg; }
+}
+
+@keyframes fadeIn {
+  from { --gradient-stop: 70%; }
+  to { --gradient-stop: 0%; }
+}
