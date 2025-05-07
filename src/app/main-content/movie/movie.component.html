@@ -1,4 +1,4 @@
-<div class="video-wrapper" (mouseenter)="showOverlay = true" (mouseleave)="showOverlay = false">
+<div class="video-wrapper" (mousemove)="onMouseMove()">
   <video id="my-video" class="plyr__video-embed" playsinline controls preload="auto"></video>
 
   <div class="custom-overlay top-right" [class.visible]="showOverlay">

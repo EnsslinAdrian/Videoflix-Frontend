@@ -16,6 +16,7 @@ export class MovieComponent {
   public showOverlay = false;
   public movieTitle = 'Spring';
   public showMovieInfo = false;
+  private hideOverlayTimeout: any;
 
   private hls?: Hls;
   private player?: Plyr;
@@ -41,6 +42,17 @@ export class MovieComponent {
     });
   }
 
+  onMouseMove() {
+    this.showOverlay = true;
+
+    if (this.hideOverlayTimeout) {
+      clearTimeout(this.hideOverlayTimeout);
+    }
+
+    this.hideOverlayTimeout = setTimeout(() => {
+      this.showOverlay = false;
+    }, 3000); 
+  }
 
   /**
    * Sets up the video player with the provided video element and stream URL.
