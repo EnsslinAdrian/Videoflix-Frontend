@@ -25,6 +25,13 @@ export class HeaderComponent {
     this.isLoggedIn$ = this.authService.isAuthenticated();
   }
 
+  /**
+   * Lifecycle hook that is called after the component is initialized.
+   * Determines whether to show the intro animation or directly display the logo
+   * based on the presence of a session storage flag. If the animation has not
+   * been played, it sets a timeout to transition from the intro to the logo
+   * and updates the session storage.
+   */
   ngOnInit(): void {
     const played = sessionStorage.getItem('animationPlayed');
     this.isFirstVisit = !played;
@@ -42,6 +49,9 @@ export class HeaderComponent {
     }
   }
 
+  /**
+   * Logs the user out by invoking the logout method from the authentication service.
+   */
   logout() {
     this.authService.logout()
   }

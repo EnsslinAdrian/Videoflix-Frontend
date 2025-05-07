@@ -14,6 +14,10 @@ export class ErrorToastComponent {
 @Input() toastMessage: string = '';
 @Output() showErrorToastChange = new EventEmitter<boolean>();
 
+/**
+ * Emits the current state of the error toast visibility.
+ * Typically used to notify parent components about the visibility change.
+ */
 closeErrorToast() {
   this.showErrorToastChange.emit(this.showErrorToast);
 }

@@ -1,13 +1,13 @@
 <section>
-  <div class="recommended-movie-container">
+  <div class="recommended-movie-container" style="background-image: url({{urls.trailerCover}});">
     <div class="bg-dark"></div>
     <div class="bg-movie">
       <video #myVideo playsinline class="bg-video" (ended)="onVideoEnded()">
-        <source src="https://api.adrianensslin.de/media/trailer/Unbenanntes_Video_vxvfb6e.mp4" type="video/mp4" />
+        <source src="{{urls.trailer}}" type="video/mp4" />
         Dein Browser unterstützt kein HTML5-Video.
       </video>
 
-      <img *ngIf="videoEnded" src="https://api.adrianensslin.de/media/trailer/spring_0brOkmO.png" class="end-image fade-in" alt="Startbild" />
+      <img *ngIf="videoEnded" src="{{urls.trailerCover}}" class="end-image fade-in" alt="Startbild" />
     </div>
 
     <button (click)="sound('off')" *ngIf="!isMuted" class="mute-btn"><img src="/img/sound/volume_up.svg"

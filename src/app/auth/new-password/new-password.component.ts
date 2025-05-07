@@ -35,6 +35,11 @@ export class NewPasswordComponent {
     { validators: passwordMatch }
   );
 
+  /**
+   * Handles the submission of the new password form.
+   * Extracts query parameters for user ID and token, validates the form,
+   * and sends a request to confirm the new password.
+   */
   onSubmit() {
     this.startOnSubmit();
     const uid = this.route.snapshot.queryParamMap.get('uid');
@@ -52,12 +57,23 @@ export class NewPasswordComponent {
     }
   }
 
+  /**
+   * Handles the submission process for the new password form.
+   * Sets the loading state, resets the result flag, and marks all form controls as touched.
+   */
   startOnSubmit() {
     this.isLoading = true;
     this.result = false;
     this.newPassword.markAllAsTouched();
   }
 
+  /**
+   * Handles the response for email verification and updates the UI accordingly.
+   * Displays a success message, resets the password form, stops the loading indicator,
+   * and navigates to the login page after a delay.
+   *
+   * @param response - The response object containing the verification result and message.
+   */
   isEmailCorrect(response: any) {
     this.toastMessage = response.message;
     this.errorOrCorrect = 'correct';
@@ -69,6 +85,12 @@ export class NewPasswordComponent {
     }, 3000);
   }
 
+  /**
+   * Handles email-related errors by extracting error messages,
+   * updating the toast message, and setting error state variables.
+   *
+   * @param error - The error object containing error details.
+   */
   isEmailIncorrect(error: any) {
     const errors = error.error || {};
     this.toastMessage = Object.values(errors)
@@ -79,10 +101,17 @@ export class NewPasswordComponent {
     this.isLoading = false;
   }
 
+  /**
+   * Clears the error toast by resetting the result state to false.
+   */
   clrearErrorToast() {
     this.result = false;
   }
 
+  /**
+   * Toggles the visibility of the specified password field.
+   * @param field - The password field to toggle ('password' or 'confirmPassword').
+   */
   togglePasswordVisibility(field: 'password' | 'confirmPassword') {
     if (field === 'password') {
       this.showPassword = !this.showPassword;

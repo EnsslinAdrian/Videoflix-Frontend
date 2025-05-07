@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { ErrorToastComponent } from "../../ui-component/error-toast/error-toast.component";
 import { passwordMatch } from '../../../validators/password.validator';
 import { AuthService } from '../../../services/authentication/auth.service';
+import { Register } from '../../../interfaces/auth';
 
 
 @Component({
@@ -30,12 +31,10 @@ export class SignUpComponent {
   constructor(private router: Router, private authService: AuthService) { }
 
   signUp = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.pattern("^(?=.*[A-Z])(?=.*\\d).+$"), Validators.minLength(8)]),
-    confirmPassword: new FormControl('', [Validators.required]),
-  },
-    { validators: passwordMatch }
-  );
+    email: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    password: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, Validators.pattern("^(?=.*[A-Z])(?=.*\\d).+$"), Validators.minLength(8)] }),
+    confirmPassword: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+  }, { validators: passwordMatch });
 
   /**
    * Lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
@@ -53,7 +52,8 @@ export class SignUpComponent {
   onSubmit() {
     this.startOnSubmit();
     if (this.signUp.valid) {
-      this.authService.register(this.signUp.value).subscribe({
+      const registerData: Register = this.signUp.getRawValue();
+      this.authService.register(registerData).subscribe({
         next: (response: any) => {
           this.isRegisterCorrect(response);
         },

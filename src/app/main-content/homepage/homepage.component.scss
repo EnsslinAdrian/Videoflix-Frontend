@@ -9,7 +9,6 @@ section {
   width: 100%;
   min-height: 500px;
   position: relative;
-  background-image: url('https://api.adrianensslin.de/media/trailer/spring_0brOkmO.png');
 }
 
 .bg-dark {
@@ -139,7 +138,8 @@ section {
   gap: 20px;
   width: 100%;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 
 .movie-card {

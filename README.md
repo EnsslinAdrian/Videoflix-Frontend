@@ -1,59 +1,161 @@
-# VideoflixFrontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.5.
+# 🎬 VideoflixFrontend
 
-## Development server
+Willkommen bei **Videoflix** — einem modernen Streaming-Frontend im Stil von Netflix.
 
-To start a local development server, run:
+Dieses Projekt wurde von **Adrian Enßlin** entwickelt und basiert auf **Angular CLI 19.2.9**.
+
+Mit Videoflix kannst du Filme streamen, dich registrieren, anmelden und Passwörter zurücksetzen. Die Wiedergabe erfolgt über den modernen Plyr-Player mit HLS-Unterstützung.
+
+---
+
+## 🚀 Features
+
+✅ Registrierung und Login  
+✅ Passwort zurücksetzen und E-Mail-Verifizierung  
+✅ JWT-Authentifizierung mit Token-Refresh  
+✅ HLS Video-Streaming über Plyr  
+✅ Trailer-Anzeige  
+✅ Responsives, eigenes UI-Design (kein Bootstrap)  
+✅ REST-API-Anbindung mit zentralem URL-Service  
+✅ Modaler Dialog für Filminfos  
+✅ Guards zum Schutz privater Bereiche
+
+---
+
+## 🧰 Technologien
+
+- **Angular CLI**: 19.2.9
+- **TypeScript**: ^5.x
+- **RxJS**
+- **Plyr** (mit HLS)
+- **REST API**: https://api.adrianensslin.de
+
+---
+
+## 🗂 Projektstruktur
+
+```bash
+├───public
+│   ├───fonts
+│   └───img
+│       ├───background
+│       ├───icons
+│       │   ├───arrows
+│       │   └───sign_up
+│       ├───logo
+│       └───sound
+└───src
+    ├───app
+    │   ├───auth
+    │   │   ├───email-verify
+    │   │   ├───forget-password
+    │   │   ├───login
+    │   │   ├───new-password
+    │   │   └───sign-up
+    │   ├───dialog
+    │   │   └───movie-info
+    │   ├───imprint
+    │   │   ├───data-protection
+    │   │   └───imprint
+    │   ├───main-content
+    │   │   ├───homepage
+    │   │   ├───movie
+    │   │   └───startsite
+    │   ├───shared
+    │   │   ├───footer
+    │   │   └───header
+    │   └───ui-component
+    │       ├───error-toast
+    │       └───typography
+    ├───guards
+    ├───interfaces
+    ├───services
+    │   ├───authentication
+    │   ├───interceptor
+    │   ├───movies
+    │   └───urls
+    └───validators
+```
+
+---
+
+## 🔗 API-Base & URL-Service
+
+**Base URL**: `https://api.adrianensslin.de/`
+
+Der `UrlsService` kapselt alle Endpunkte:
+
+```typescript
+// Base URLs
+baseUrl = 'https://api.adrianensslin.de/'
+baseAuthUrl = 'https://api.adrianensslin.de/api/auth/'
+
+// Authentication URLs
+registerUrl = baseAuthUrl + 'register/'
+loginUrl = baseAuthUrl + 'login/'
+passwordResetUrl = baseAuthUrl + 'password-reset/'
+passwordResetConfirmUrl = baseAuthUrl + 'password-reset/confirm/'
+logoutUrl = baseAuthUrl + 'logout/'
+meUrl = baseAuthUrl + 'me/'
+emailVerifyUrl = baseAuthUrl + 'verify-email/'
+authStatusUrl = baseAuthUrl + 'status/'
+refreshUrl = baseAuthUrl + 'refresh/'
+
+// Movie URLs
+moviesUrl = baseUrl + 'api/movie/'
+trailer = baseUrl + 'media/trailer/spingVideo_web_jSukF3F.mp4'
+trailerCover = baseUrl + 'media/trailer/spring_0brOkmO.png'
+```
+
+---
+
+## 🔥 Entwicklung
+
+### Development-Server starten
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Gehe zu: [http://localhost:4200](http://localhost:4200)
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### Build
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Build-Artefakte werden im `dist/` Verzeichnis abgelegt.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 🧪 Tests
+
+### Unit Tests
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### End-to-End Tests
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+> Hinweis: Für e2e-Tests muss ein passendes Framework integriert werden.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 👤 Entwickler
+
+**Adrian Enßlin**  
+Fullstack-Entwickler | Angular | REST APIs | Video-Streaming
+
+---
+
+## 📢 Hinweis
+
+Dieses Projekt dient als privates Streaming-Frontend für Lern- und Demonstrationszwecke.  
+Alle Medien und Ressourcen sind nur Beispielinhalte.

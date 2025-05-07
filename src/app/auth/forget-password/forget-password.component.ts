@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ErrorToastComponent } from "../../ui-component/error-toast/error-toast.component";
 import { AuthService } from '../../../services/authentication/auth.service';
+import { ResetPassword } from '../../../interfaces/auth';
 
 @Component({
   selector: 'app-forget-password',
@@ -26,13 +27,20 @@ export class ForgetPasswordComponent {
   constructor(private router: Router, private authService: AuthService) {}
 
   forgetPasswort = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl<string>('', {nonNullable: true, validators: [Validators.required, Validators.email]}),
   });
 
+  /**
+   * Handles the form submission for the forget password functionality.
+   * Validates the form and triggers the password reset process via the AuthService.
+   * On success, processes the response to check email correctness.
+   * On error, handles incorrect email scenarios.
+   */
   onSubmit() {
     this.startOnSubmit();
     if (this.forgetPasswort.valid) {
-      this.authService.resetPassword(this.forgetPasswort.value).subscribe({
+      const formValue: ResetPassword = this.forgetPasswort.getRawValue();
+      this.authService.resetPassword(formValue).subscribe({
         next: (response: any) => {
           this.isEmailCorrect(response);
         },
@@ -43,12 +51,23 @@ export class ForgetPasswordComponent {
     }
   }
 
+  /**
+   * Handles the submission process for the forget password form.
+   * Marks all form controls as touched, sets the loading state,
+   * and resets the result flag.
+   */
   startOnSubmit() {
     this.isLoading = true;
     this.result = false;
     this.forgetPasswort.markAllAsTouched();
   }
 
+  /**
+   * Handles the response for email validation during the forget password process.
+   * Updates the UI state, resets the form, and logs the user out after a delay.
+   *
+   * @param response - The response object containing the validation message.
+   */
   isEmailCorrect(response: any) {
     this.toastMessage = response.message;
     this.errorOrCorrect = 'correct';
@@ -60,6 +79,12 @@ export class ForgetPasswordComponent {
     }, 3000);
   }
 
+  /**
+   * Handles email validation errors by extracting error messages,
+   * updating the toast message, and setting the error state.
+   *
+   * @param error - The error object containing validation details.
+   */
   isEmailIncorrect(error: any) {
     const errors = error.error || {};
     this.toastMessage = Object.values(errors)

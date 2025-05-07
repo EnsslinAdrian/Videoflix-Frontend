@@ -78,6 +78,9 @@ export class EmailVerifyComponent {
   }, 1000);
   }
 
+  /**
+   * Navigates the user to the login page after a delay of 3 seconds.
+   */
   navigateToLogin() {
     setTimeout(() => {
       this.router.navigate(['/login']);

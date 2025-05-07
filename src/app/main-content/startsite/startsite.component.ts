@@ -27,6 +27,11 @@ export class StartsiteComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
+  /**
+   * Handles the form submission for the startsite component.
+   * Marks all form controls as touched, validates the form, 
+   * caches the email value, and navigates to the sign-up page if valid.
+   */
   onSubmit() {
     this.startsite.markAllAsTouched();
     if (this.startsite.valid) {
@@ -36,6 +41,9 @@ export class StartsiteComponent {
     }
   }
 
+  /**
+   * Clears the error toast by resetting the result state to false.
+   */
   clrearErrorToast() {
     this.result = false;
   }
