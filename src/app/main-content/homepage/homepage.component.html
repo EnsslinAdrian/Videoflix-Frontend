@@ -10,24 +10,31 @@
       <img *ngIf="videoEnded" src="{{urls.trailerCover}}" class="end-image fade-in" alt="Startbild" />
     </div>
 
-    <button (click)="sound('off')" *ngIf="!isMuted" class="mute-btn"><img src="/img/sound/volume_up.svg"
-        alt="Sound"></button>
-    <button (click)="sound('on')" *ngIf="isMuted" class="mute-btn"><img src="/img/sound/volume_off.svg"
-        alt="Sound"></button>
+    <div class="content-wrapper-recommended">
+      <div class="max-content">
+        <button (click)="sound('off')" *ngIf="!isMuted" class="mute-btn"><img src="/img/sound/volume_up.svg"
+            alt="Sound"></button>
+        <button (click)="sound('on')" *ngIf="isMuted" class="mute-btn"><img src="/img/sound/volume_off.svg"
+            alt="Sound"></button>
 
-    <div class="movie-info">
-      <app-typography text="Spring" size="x-large" color="white" [weight]="700" [align]="'left'"></app-typography>
-      <app-typography
-        text="Spring is the story of a shepherd girl and her dog, who face ancient spirits in order to continue the cycle of life."
-        size="small" color="white" [weight]="400" [align]="'left'"></app-typography>
-      <app-typography
-        text="This poetic and visually stunning short film was written and directed by Andy Goralczyk, inspired by his childhood in the mountains of Germany."
-        size="small" color="white" [weight]="400" [align]="'left'"></app-typography>
-      <button (click)="startTrailerMovie()" class="play-btn"><img src="/img/icons/play_arrow.svg" alt="Play"><app-typography text="Play" size="medium"
-          color="white" [weight]="700" [align]="'left'"></app-typography></button>
+        <div class="movie-info">
+          <app-typography text="Spring" size="x-large" color="white" [weight]="700" [align]="'left'"></app-typography>
+          <app-typography
+            text="Spring is the story of a shepherd girl and her dog, who face ancient spirits in order to continue the cycle of life."
+            size="small" color="white" [weight]="400" [align]="'left'"></app-typography>
+          <app-typography
+            text="This poetic and visually stunning short film was written and directed by Andy Goralczyk, inspired by his childhood in the mountains of Germany."
+            size="small" color="white" [weight]="400" [align]="'left'"></app-typography>
+          <button (click)="startTrailerMovie()" class="play-btn"><img src="/img/icons/play_arrow.svg"
+              alt="Play"><app-typography text="Play" size="medium" color="white" [weight]="700"
+              [align]="'left'"></app-typography></button>
+        </div>
+
+      </div>
     </div>
   </div>
 
+  <div class="content-wrapper-more-movies">
   <div class="more-movies-container">
     <ng-container *ngFor="let category of movieCategories">
       <app-typography [text]="category" size="x-medium" color="white" [weight]="700" [align]="'left'"></app-typography>
@@ -53,11 +60,10 @@
 
         <img *ngIf="(isMobileDevice || hoveredCategory === category) && scrollState[category]?.canScrollRight"
           class="arrow-right" src="/img/icons/arrows/arrow_right.svg" (click)="scroll(category, 'right')" />
-
       </div>
-
-
     </ng-container>
   </div>
+  </div>
+
 
 </section>

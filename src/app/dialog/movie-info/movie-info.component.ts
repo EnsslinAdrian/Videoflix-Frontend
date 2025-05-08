@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TypographyComponent } from "../../ui-component/typography/typography.component";
 import { Movie } from '../../../interfaces/movie';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-movie-info',
-  imports: [CommonModule, TypographyComponent],
+  imports: [CommonModule, TypographyComponent, RouterLink],
   templateUrl: './movie-info.component.html',
   styleUrl: './movie-info.component.scss'
 })

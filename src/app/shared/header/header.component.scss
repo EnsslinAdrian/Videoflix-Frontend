@@ -5,7 +5,7 @@ header {
   width: 100%;
   z-index: 5;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   padding: 30px 96px;
@@ -16,6 +16,16 @@ header {
   }
 }
 
+.content-wrapper {
+  width: 100%;
+  max-width: 1920px;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .link-btn {
   box-sizing: border-box;
   border-radius: 20px;
@@ -24,11 +34,7 @@ header {
   transition: all 0.2s ease-in-out;
   text-decoration: none;
   position: absolute;
-  right: 100px;
-
-  @media (max-width: 960px) {
-    right: 20px;
-  }
+  right: 0px;
 
   &:hover {
     background-color: var(--purple_hover);

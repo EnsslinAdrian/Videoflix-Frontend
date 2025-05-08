@@ -1,7 +1,7 @@
 <div class="movie-info-container" [class.show-movie-info]="showMovieInfo">
   <div class="movie-info-header">
-    <img src="/img/logo/logo.svg" alt="Logo">
-    <img (click)="closeMovieInfo()" src="/img/icons/arrows/arrow_back.svg" alt="Back" />
+    <img src="/img/logo/logo.svg" alt="Logo" routerLink="/home">
+    <img (click)="closeMovieInfo()" src="/img/icons/arrows/arrow_back.svg" alt="Back" routerLink="/home"/>
   </div>
   <div class="movie-info-content">
     <div class="movie-info">

@@ -51,75 +51,132 @@ export class MovieComponent {
 
     this.hideOverlayTimeout = setTimeout(() => {
       this.showOverlay = false;
-    }, 3000); 
+    }, 3000);
   }
 
   /**
-   * Sets up the video player with the provided video element and stream URL.
-   * Utilizes HLS.js if supported, otherwise falls back to native HLS playback.
-   * Displays an initial overlay after setup.
+   * Sets up the video player with the provided stream URL.
+   * Uses HLS if supported, otherwise falls back to native playback for compatible browsers.
    *
-   * @param video - The HTMLVideoElement to initialize the player on.
+   * @param video - The HTMLVideoElement to configure.
    * @param streamUrl - The URL of the video stream to play.
-   * @private
    */
   private setupPlayer(video: HTMLVideoElement, streamUrl: string): void {
-    if (Hls.isSupported()) {
-      this.initHls(video, streamUrl);
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      this.fallbackNative(video, streamUrl);
-    }
+    if (!streamUrl) return;
 
-    this.showInitialOverlay();
+    if (Hls.isSupported()) {
+      this.setupHlsWithPlyr(video, streamUrl);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = streamUrl;
+      this.handleAutoplay(video);
+    }
   }
 
   /**
-   * Initializes the HLS.js player with the provided video element and stream URL.
-   * Loads the HLS stream, attaches it to the video element, and sets up event listeners.
+   * Initializes and sets up HLS.js with Plyr for video playback.
    *
    * @param video - The HTMLVideoElement to attach the HLS stream to.
-   * @param streamUrl - The URL of the HLS stream to be loaded.
+   * @param streamUrl - The URL of the HLS stream to load.
+   * @private
    */
-  private initHls(video: HTMLVideoElement, streamUrl: string): void {
-    if (!streamUrl) {
-      return;
-    }
+  private setupHlsWithPlyr(video: HTMLVideoElement, streamUrl: string): void {
+    const hls = new Hls();
+    this.hls = hls;
 
-    this.hls = new Hls();
-    this.hls.loadSource(streamUrl);
-    this.hls.attachMedia(video);
+    hls.loadSource(streamUrl);
+    hls.attachMedia(video);
 
-    this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      this.initPlyrControls(video);
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      const availableQualities = this.getAvailableQualities(hls);
+      const options = this.getPlayerOptions(hls, availableQualities);
+      this.initLevelSwitchListener(hls);
+      this.player = new Plyr(video, options);
       this.handleAutoplay(video);
     });
   }
 
   /**
-   * Sets the video element's source to the provided stream URL and handles autoplay.
-   * If the stream URL is not provided, the method exits early.
+   * Retrieves the available video quality levels from the provided Hls instance.
+   * Includes an "Auto" option represented by 0.
    *
-   * @param video - The HTMLVideoElement to set the source for.
-   * @param streamUrl - The URL of the video stream to be played.
+   * @param hls - The Hls instance containing video level information.
+   * @returns An array of available quality levels, with 0 as the first element for "Auto".
    */
-  private fallbackNative(video: HTMLVideoElement, streamUrl: string): void {
-    if (!streamUrl) {
-      return;
-    }
-
-    video.src = streamUrl;
-    this.handleAutoplay(video);
+  private getAvailableQualities(hls: Hls): number[] {
+    const qualities = hls.levels.map(level => level.height);
+    qualities.unshift(0); // Auto
+    return qualities;
   }
 
   /**
-   * Initializes the Plyr video player with specified controls and settings.
+   * Generates the player options configuration.
    *
-   * @param video - The HTMLVideoElement to be used by the Plyr player.
+   * @param hls - The Hls instance used for video streaming.
+   * @param availableQualities - An array of available video quality levels.
+   * @returns The player options configuration object.
    */
-  private initPlyrControls(video: HTMLVideoElement): void {
-    this.player = new Plyr(video, {
-      controls: ['play', 'rewind', 'fast-forward', 'progress', 'current-time', 'duration', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
-      debug: false
+  private getPlayerOptions(hls: Hls, availableQualities: number[]): any {
+    return {
+      quality: this.getQualityConfig(hls, availableQualities),
+      i18n: {
+        qualityLabel: {
+          0: 'Auto'
+        }
+      }
+    };
+  }
+
+  /**
+   * Generates a configuration object for managing video quality in an HLS player.
+   *
+   * @param hls - The Hls instance used for video playback.
+   * @param availableQualities - An array of available quality levels.
+   * @returns A configuration object for quality settings.
+   */
+  private getQualityConfig(hls: Hls, availableQualities: number[]) {
+    return {
+      default: 0,
+      options: availableQualities,
+      forced: true,
+      onChange: (newQuality: number) => this.changeQuality(hls, newQuality)
+    };
+  }
+
+  /**
+   * Changes the video quality for the given HLS instance.
+   *
+   * @param hls - The Hls instance used for video playback.
+   * @param newQuality - The desired video quality in pixels (e.g., 720 for 720p).
+   *                      Use 0 to enable automatic quality selection.
+   */
+  private changeQuality(hls: Hls, newQuality: number): void {
+    if (newQuality === 0) {
+      hls.currentLevel = -1;
+    } else {
+      hls.levels.forEach((level, levelIndex) => {
+        if (level.height === newQuality) {
+          hls.currentLevel = levelIndex;
+          console.log(`Qualität geändert zu ${newQuality}p`);
+        }
+      });
+    }
+  }
+
+  /**
+   * Initializes a listener for the HLS level switch event and updates the UI to reflect the current quality level.
+   *
+   * @param hls - The Hls instance used for handling video streaming and events.
+   */
+  private initLevelSwitchListener(hls: Hls): void {
+    hls.on(Hls.Events.LEVEL_SWITCHED, (event, data) => {
+      const autoSpan = document.querySelector(".plyr__menu__container [data-plyr='quality'][value='0'] span");
+      if (autoSpan) {
+        if (hls.autoLevelEnabled) {
+          autoSpan.innerHTML = `Auto (${hls.levels[data.level].height}p)`;
+        } else {
+          autoSpan.innerHTML = `Auto`;
+        }
+      }
     });
   }
 

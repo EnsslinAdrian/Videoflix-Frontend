@@ -1,20 +1,26 @@
+.content-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--black);
+  box-sizing: border-box;
+  padding: 100px 100px;
+
+  @media (max-width: 960px) {
+    padding: 100px 20px;
+  }
+}
+
 section {
   min-height: 100vh;
   width: 100%;
+  max-width: 1920px;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: start;
   flex-direction: column;
   font-family: 'DM Sans';
-  margin-top: 100px;
-  box-sizing: border-box;
-  padding: 0 100px;
-  margin-bottom: 100px;
-
-  @media (max-width: 960px) {
-    padding: 0 20px;
-  }
 }
 
 h1, h2, h3, h4 {
