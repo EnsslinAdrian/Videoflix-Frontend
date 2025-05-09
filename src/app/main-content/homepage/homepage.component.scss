@@ -171,15 +171,15 @@ section {
 }
 
 .movie-card {
-  width: 200px;
-  height: 120px;
+  width: 240px;
+  height: 150px;
   flex-shrink: 0;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   position: relative;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 
   @media (max-width: 960px) {

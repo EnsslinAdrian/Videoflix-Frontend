@@ -84,6 +84,13 @@ header {
   animation: fadeBackground 1.5s ease-in-out 2s forwards;
 }
 
+.content-wrapper-animation {
+  width: 100%;
+  max-width: 1920px;
+  height: 100%;
+  position: relative;
+}
+
 .img-wrapper {
   position: absolute;
   top: 50%;
@@ -92,8 +99,16 @@ header {
   transform: translate(-50%, -50%);
   overflow: hidden;
   animation: slideUpLeft 1s ease-out 2s forwards;
+}
 
-  @media (max-width: 960px) {
+@media (min-width: 961px) and (max-width: 1940px) {
+  .img-wrapper {
+    animation: slideUpLeftSmall 1s ease-out 2s forwards;
+  }
+}
+
+@media (max-width: 960px) {
+  .img-wrapper {
     animation: slideUpLeftMobile 1s ease-out 2s forwards;
   }
 }
@@ -121,6 +136,20 @@ header {
 }
 
 @keyframes slideUpLeft {
+  from {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+  to {
+    top: 34px;
+    left: 0px;
+    transform: none;
+    width: 200px;
+  }
+}
+@keyframes slideUpLeftSmall {
   from {
     top: 50%;
     left: 50%;

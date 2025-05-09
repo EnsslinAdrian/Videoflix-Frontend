@@ -70,7 +70,16 @@ export class HomepageComponent {
    */
   ngAfterViewInit() {
     const video = this.videoRef.nativeElement;
-    video.muted = false;
+
+    const mutedFromSession = sessionStorage.getItem('muted');
+    if (mutedFromSession === 'true') {
+      video.muted = true;
+      this.isMuted = true;
+    } else {
+      video.muted = false;
+      this.isMuted = false;
+    }
+
     video.autoplay = true;
 
     video.play().then(() => {
@@ -80,6 +89,7 @@ export class HomepageComponent {
       this.isMuted = true;
       video.play();
     });
+
     this.scrollability();
   }
 
@@ -118,9 +128,11 @@ export class HomepageComponent {
     if (state === 'on') {
       video.muted = false;
       this.isMuted = false;
+      sessionStorage.setItem('muted', 'false');
     } else {
       video.muted = true;
       this.isMuted = true;
+      sessionStorage.setItem('muted', 'true');
     }
   }
 
